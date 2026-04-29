@@ -586,7 +586,7 @@ def run_analysis(log_path: Optional[str] = None) -> list[str]:
     print(f"[AI Analysis] Parsing log: {log_path}")
     events = parse_log(log_path)
     if not events:
-        print("[AI Analysis] No log events found — nothing to analyze.")
+        print("[AI Analysis] No log events found - nothing to analyze.")
         return []
 
     print(f"[AI Analysis] {len(events)} keystroke events parsed.")
@@ -596,17 +596,17 @@ def run_analysis(log_path: Optional[str] = None) -> list[str]:
     non_empty = {w: t for w, t in window_texts.items() if t.strip()}
     print(
         f"[AI Analysis] Reconstructed text for {len(non_empty)} window(s). "
-        f"Sending to OpenAI ({model})…"
+        f"Sending to OpenAI ({model})..."
     )
     ai_results = analyze_with_openai(non_empty, api_key, model)
 
-    print(f"[AI Analysis] Generating graphs → {output_dir}")
+    print(f"[AI Analysis] Generating graphs -> {output_dir}")
     saved, score = generate_graphs(stats, ai_results, output_dir)
 
     label, _ = _risk_label(score)
     print(
         f"\n{'=' * 50}\n"
-        f"  SESSION LEAKAGE RISK SCORE: {score}%  —  {label}\n"
+        f"  SESSION LEAKAGE RISK SCORE: {score}%  -  {label}\n"
         f"{'=' * 50}"
     )
     return saved
@@ -618,7 +618,7 @@ if __name__ == "__main__":
     log_arg = sys.argv[1] if len(sys.argv) > 1 else None
     paths = run_analysis(log_arg)
     if paths:
-        print(f"\n[AI Analysis] Done — {len(paths)} report(s) saved:")
+        print(f"\n[AI Analysis] Done - {len(paths)} report(s) saved:")
         for p in paths:
             print(f"  {p}")
     else:

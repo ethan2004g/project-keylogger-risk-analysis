@@ -16,4 +16,5 @@ If you discover a security problem in the public analysis code or documentation:
 
 - Never commit API keys, webhook URLs, or access tokens.
 - Never publish raw keystroke logs or unsanitized lab output.
+- Keep any sample files committed under `logs/` or `reports/` sanitized and safe for public review.
 - Rotate any secret that may have been stored locally before making the repository public.

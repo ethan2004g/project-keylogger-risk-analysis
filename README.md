@@ -4,7 +4,7 @@
 
 Project Keylogger is a defensive research repository that explains how keyboard-input exposure can be studied through risk analysis, sanitized logs, and reporting workflows. The GitHub version is intentionally centered on **explanation, analysis, and documentation** rather than on distributing operational capture or exfiltration code.
 
-## What This Repository Explains
+## What This Repository Includes
 
 This repository is meant to explain three parts of the project:
 
@@ -12,13 +12,15 @@ This repository is meant to explain three parts of the project:
 - how sanitized session logs can be reconstructed into readable context
 - how AI-assisted summaries and charts can help communicate findings
 
-To keep the repository safe for public hosting, local-only runtime pieces and generated sensitive data are excluded by default through `.gitignore`.
+The repository also includes a sanitized sample log and example report images so the public analysis workflow can be reviewed without recreating local capture steps.
 
 ## How The Project Is Structured
 
 - `risk_analysis.py` contains the rule-based risk model and session summary logic.
 - `ai_analysis.py` parses a sanitized event log, reconstructs text by window, and produces AI-assisted summaries plus charts.
 - `config.py` contains local configuration defaults with secrets sourced from environment variables only.
+- `logs/sanitized_session_log.txt` is a committed, sanitized example input for the public workflow.
+- `reports/` contains committed example PNG outputs generated from sanitized data.
 - `requirements.txt` installs the analysis and reporting dependencies needed for the public repo.
 
 ## How The Analysis Works
@@ -59,23 +61,27 @@ Optional environment variables:
 
 ## Analysis Workflow
 
-1. Prepare a **sanitized** log file from an authorized lab session.
+1. Review the committed sample log in `logs/sanitized_session_log.txt`, or prepare your own **sanitized** log from an authorized lab session.
 2. Install the dependencies from `requirements.txt`.
-3. Set `OPENAI_API_KEY` if you want AI-assisted scoring.
+3. Set `OPENAI_API_KEY` for AI-assisted scoring. The script exits early if no API key is configured.
 4. Run the analysis locally:
 
 ```bash
 python ai_analysis.py path\to\sanitized_log.txt
 ```
 
-Generated output is written to `reports/`, which is ignored so charts and derived artifacts do not get committed accidentally.
+If no path is provided, the script uses `config.LOG_PATH`, which points to the committed sample log.
+
+Generated output is written to `reports/` with timestamped filenames such as `risk_overview_YYYYMMDD_HHMMSS.png`, `ai_sensitivity_YYYYMMDD_HHMMSS.png`, and `ai_summaries_YYYYMMDD_HHMMSS.png`.
+
+The repository already tracks a small set of example charts in `reports/` for documentation purposes. New timestamped outputs are typically left untracked, but any changes to the committed example artifacts should be reviewed carefully before they are committed.
 
 ## What Is Kept Out Of GitHub
 
-The default `.gitignore` is configured to keep the following out of a new GitHub repository:
+The default `.gitignore` is configured to keep the following local-only items out of a new GitHub repository:
 
 - local virtual environments and cache directories
-- raw logs and generated reports
+- additional raw logs and generated reports
 - environment files and local-only secrets
 - local runtime entrypoints such as `run.py`
 - local-only capture components such as `keylogger.py`

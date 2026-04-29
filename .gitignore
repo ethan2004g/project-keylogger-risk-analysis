@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / OS
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Logs, reports, and derived artifacts
+logs/
+reports/
+*.log
+.shadow_log.txt
+
+# Secrets and local config
+.env
+.env.*
+*.env.local
+config.local.py
+
+# Local-only runtime components
+run.py
+keylogger.py
+
+# Build artifacts
+build/
+dist/

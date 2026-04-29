@@ -1,0 +1,6 @@
+# Project Keylogger — Team Key
+# Public GitHub dependencies for analysis and reporting only
+
+openai>=1.0.0
+matplotlib>=3.7.0
+numpy>=1.24.0
